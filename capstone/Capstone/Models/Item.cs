@@ -9,7 +9,7 @@ namespace Capstone.Models
         public string Name { get;private set; }
         public decimal Price { get; private set; }
         public ItemType ItemType { get; set; }
-
+        public int Count { get; set; }
 
 
     }
