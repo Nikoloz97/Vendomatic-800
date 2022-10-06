@@ -9,7 +9,7 @@ namespace Capstone.Models
     {
         
 
-        public void WriteToLog(string msg)
+        public static void WriteToLog(string msg)
         {
             string directory = Environment.CurrentDirectory;
             string fileName = "Log.txt";

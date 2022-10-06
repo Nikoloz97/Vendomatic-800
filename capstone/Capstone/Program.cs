@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 
 namespace Capstone
 {
-    class Program
+    public class Program
     {
+        
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            VendOMatic800 vendOMatic800 = new VendOMatic800();
+            vendOMatic800.Start();
+            //vm.start
         }
     }
 }

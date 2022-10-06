@@ -16,7 +16,7 @@ namespace Capstone.Models
         public void LoadInventory()
         {
             
-            string fileName = @"C: \Users\Student\git\c - sharp - minicapstonemodule1 - team0\capstone\vendingmachine.csv";
+            string fileName = @"C:\Users\Student\git\c-sharp-minicapstonemodule1-team0\capstone\vendingmachine.csv";
             using (StreamReader sr = new StreamReader(fileName))
             {
                 while (!sr.EndOfStream)
@@ -40,7 +40,7 @@ namespace Capstone.Models
 
         public bool  Check (Item item)
         {
-            //return IsSoldOut;
+           return true;
         }
         public void Dispense(Item item)
         {

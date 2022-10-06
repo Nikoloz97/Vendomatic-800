@@ -32,18 +32,18 @@ namespace Capstone.Models
 
         public string DisplayMessage()
         {
-
+            return null;
 
         }
 
         public string StartTransaction()
         {
-
+            return null;
         }
 
         public string LogItem()
         {
-
+            return null;
         }
 
     }
