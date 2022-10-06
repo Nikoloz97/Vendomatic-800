@@ -7,54 +7,45 @@ namespace Capstone.Models
 {
    public class Inventory
     {
-        public Item Items { get; set; }
-        public int Count { get; set; }
-        bool IsSoldOut { 
-            get {
-                return !(Count > 0); 
-            } 
-        }
+        public Dictionary<string, Item> InventoryItems = new Dictionary<string, Item>();
+        
+        
         public string Location { get; private set; }
 
 
-        public void ReadLine()
+        public void LoadInventory()
         {
-            string directory = Environment.CurrentDirectory;
-            string fileName = "vendingmachine.csv";
-            using (StreamReader sr = new StreamReader(Path.Combine(directory, fileName)))
+            
+            string fileName = @"C: \Users\Student\git\c - sharp - minicapstonemodule1 - team0\capstone\vendingmachine.csv";
+            using (StreamReader sr = new StreamReader(fileName))
             {
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
-                    Dictionary lineArray = line.Split("|");
-                    for (int i = 0; i < lineArray.Length; i++)
-                    {
-                        // Is location assignment correct?
-                        Location = lineArray[0];
-                        Items.Name = lineArray[1];
-                        decimal.Parse(lineArray[2]) = decimal itemPrice;
-                        itemPrice = Items.Price;
-                        // ??
-                        lineArray[3] = Items.ItemType;
-                    }
+                    
+                    string[] itemArray = line.Split("|");
 
+                    Item item = new Item();
+
+                    item.Name = itemArray[1];
+                    item.Price = decimal.Parse(itemArray[2]);
+                    item.ItemType = itemArray[3];
+                    InventoryItems.Add(itemArray[0], item);
+                    item.Count = 5;
                 }
 
-
+                
             }
         }
 
-        public 
-
-
         public bool  Check (Item item)
         {
-            return IsSoldOut;
+            //return IsSoldOut;
         }
         public void Dispense(Item item)
         {
 
-            Count -= 1;
+            //Count -= 1;
          
         }
 
