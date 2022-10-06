@@ -14,11 +14,11 @@ namespace Capstone.Models
         //int choiceFromMainMenu = 0;
         //   public string SelectedItem { get; private set; }
 
+        public Inventory CurrentInventory = new Inventory();
         string choiceFromMainMenu = "";
         public void Start() //; pick item; pay item 
         {
-            Inventory inventory = new Inventory();
-            inventory.LoadInventory();
+            CurrentInventory.LoadInventory();
             MainMenu();
 
 
@@ -53,7 +53,8 @@ namespace Capstone.Models
             choiceFromMainMenu = (Console.ReadLine());
             if (choiceFromMainMenu == "1")
             {
-
+                DisplayList();
+                PurchaseMenu();
             }
             if (choiceFromMainMenu == "2")
             {
@@ -68,8 +69,29 @@ namespace Capstone.Models
             //2 make purchase
             //3 exit
         }
+
+        private void DisplayList()
+        {
+
+            Console.WriteLine("Location      Item         Price   Amount   Type");
+            
+            foreach (var item in CurrentInventory.InventoryItems)
+            {
+                string SoldOut = (item.Value.Count == 0) ? "SoldOut" : "";
+                Console.WriteLine($"{item.Key, 3} {item.Value.Name, 20}   {item.Value.Price, 5}   {item.Value.Count, 1}   {SoldOut}  {item.Value.ItemType, 7}");
+            }
+
+            Console.WriteLine("Select item location:");
+            string userInput = Console.ReadLine();
+
+
+
+        }
+
         public void PurchaseMenu()
         {
+
+
             
         }
         //public void 
