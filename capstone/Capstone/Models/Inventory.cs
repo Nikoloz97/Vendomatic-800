@@ -13,6 +13,7 @@ namespace Capstone.Models
                 return !(Count > 0); 
             } 
         }
+        public string Location { get; private set; }
 
 
 
