@@ -188,6 +188,9 @@ namespace Capstone.Models
                     }
                     break;
                 case "3":
+                    Console.WriteLine("Dispensing Change");
+                    Console.WriteLine(CurrentPayment.SmallestChange((int)((CurrentPayment.AmountPaid * 100))));
+                    
                     break;
                 case "00":
                     MainMenu();
