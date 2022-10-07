@@ -125,11 +125,17 @@ namespace Capstone.Models
             Console.WriteLine("(00) Return to Main Menu");
 
             string userInput = Console.ReadLine();
+            
             switch (userInput)
             {
                 case "1":
+                    CurrentPayment.IncreaseFeedMoney();PurchaseMenu();
                     break;
                 case "2":
+                    DisplayList();
+                    userInput = Console.ReadLine();
+                    //verify choice is valid
+                    Verify(userInput);
                     break;
                 case "3":
                     break;
@@ -140,10 +146,29 @@ namespace Capstone.Models
                     throw new ArgumentException();
                     break;
             }
+            
+            
+            
 
         }
-        //public void 
-       // public void UpdateDisplay()
+
+        private void Verify(string userInput)
+        {
+            if(CurrentInventory.InventoryItems.ContainsKey(userInput))
+            {
+                if (CurrentInventory.InventoryItems[userInput].Count > 0)
+                {
+                    UpdatingRemainingMoney();
+                }
+            }
+        }
+
+        public void UpdatingRemainingMoney()
+        {
+            CurrentPayment.AmountPaid -= 
+        }
+
+        
 
 
     }

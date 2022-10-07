@@ -70,5 +70,10 @@ namespace Capstone.Models
             }
             return result.TrimEnd();
         }
+        public void IncreaseFeedMoney()
+        {
+            AmountPaid++;
+        }
+        
     }
 }
