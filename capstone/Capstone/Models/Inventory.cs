@@ -42,10 +42,10 @@ namespace Capstone.Models
         {
            return true;
         }
-        public void Dispense(Item item)
+        public void Dispense(string itemsKey)
         {
-
-            //Count -= 1;
+            InventoryItems[itemsKey].Count--;
+            
          
         }
 

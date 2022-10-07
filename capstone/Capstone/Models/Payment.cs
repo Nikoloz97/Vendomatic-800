@@ -28,6 +28,7 @@ namespace Capstone.Models
             return amountPaid >= balanceDue;
 
 
+
         }
 
         public string DisplayMessage()
@@ -73,6 +74,10 @@ namespace Capstone.Models
         public void IncreaseFeedMoney()
         {
             AmountPaid++;
+        }
+        public void DecreaseMoney(decimal _amount)
+        {
+            AmountPaid -= _amount;
         }
         
     }

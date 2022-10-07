@@ -22,6 +22,11 @@ namespace Capstone.Models
         private Payment CurrentPayment = new Payment();
 
         string choiceFromMainMenu = "";
+
+        string upperUserInput = null;
+
+
+
         public void Start() //; pick item; pay item 
         {
             CurrentInventory.LoadInventory();
@@ -99,11 +104,7 @@ namespace Capstone.Models
             }
 
             Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
-            string userInput = Console.ReadLine();
-            if (userInput == "00")
-            {
-                MainMenu();
-            }
+            
 
 
 
@@ -119,13 +120,25 @@ namespace Capstone.Models
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine($"Current Money Provided: {CurrentPayment.AmountPaid:C}");
             Console.WriteLine();
+
+            if (upperUserInput != null)
+            {
+                DisplayMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
+            }
+
             Console.WriteLine("(1) Feed Money");
             Console.WriteLine("(2) Select Product");
             Console.WriteLine("(3) Finish Transaction");
             Console.WriteLine("(00) Return to Main Menu");
 
-            string userInput = Console.ReadLine();
             
+          
+           string userInput = Console.ReadLine();
+
+
+
+
+
             switch (userInput)
             {
                 case "1":
@@ -133,9 +146,17 @@ namespace Capstone.Models
                     break;
                 case "2":
                     DisplayList();
-                    userInput = Console.ReadLine();
+                    upperUserInput = Console.ReadLine();
                     //verify choice is valid
-                    Verify(userInput);
+                    Verify(upperUserInput.ToUpper());
+                    CurrentInventory.Dispense(upperUserInput.ToUpper());
+                    
+                    DisplayMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
+                    PurchaseMenu();
+
+                   
+
+
                     break;
                 case "3":
                     break;
@@ -158,15 +179,48 @@ namespace Capstone.Models
             {
                 if (CurrentInventory.InventoryItems[userInput].Count > 0)
                 {
-                    UpdatingRemainingMoney();
+                    UpdatingRemainingMoney(userInput);
+                }
+                else
+                {
+                    Console.WriteLine("Item is sold out. Select new item.");
                 }
             }
         }
 
-        public void UpdatingRemainingMoney()
+        public void UpdatingRemainingMoney(string userInput)
         {
-            CurrentPayment.AmountPaid -= 
+            if (CurrentPayment.ValidTransaction(CurrentPayment.AmountPaid, CurrentInventory.InventoryItems[userInput].Price))
+            {
+                CurrentPayment.DecreaseMoney(CurrentInventory.InventoryItems[userInput].Price);
+            }
         }
+
+        public void DisplayMessage(Item _item)
+        {
+            switch (_item.ItemType)
+            {
+                case "Chip":
+                    Console.WriteLine($"{_item.Name } {_item.Price } Crunch Crunch, Yum!");
+                    break;
+                case "Candy":
+                    Console.WriteLine($"{_item.Name } {_item.Price } Munch Munch, Yum!");
+                    break;
+                case "Drink":
+                    Console.WriteLine($"{_item.Name } {_item.Price } Glug Glug, Yum!");
+                    break;
+                case "Gum":
+                    Console.WriteLine($"{_item.Name } {_item.Price } Chew Chew, Yum!");
+                    break;
+                default:
+                    break;
+
+            }
+            
+
+        }
+
+        
 
         
 
