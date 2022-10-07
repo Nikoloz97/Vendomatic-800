@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-
+/*using System.Linq.Expressions;
+*/
+/*using System.Reflection.PortableExecutable;
+*/
 namespace Capstone.Models
 {
     public class Display
@@ -15,6 +18,9 @@ namespace Capstone.Models
         //   public string SelectedItem { get; private set; }
 
         public Inventory CurrentInventory = new Inventory();
+
+        private Payment CurrentPayment = new Payment();
+
         string choiceFromMainMenu = "";
         public void Start() //; pick item; pay item 
         {
@@ -26,35 +32,31 @@ namespace Capstone.Models
 
         }
 
-        //public string Update()
-        //{
-            
-        //}
 
         public void Exit()
         {
-            Console.WriteLine("Thank you for using Vend-O-Matic 800!");
+            //Clears previous data on the console
+            Console.Clear();
+            string message = ("Thank you for using Vend-O-Matic 800!");
+            // Centers the message
+            Console.SetCursorPosition((Console.WindowWidth - message.Length) / 2, Console.WindowHeight / 2);
+
+            Console.WriteLine(message);
             Thread.Sleep(3000);
             Environment.Exit(0);
         }
         public void MainMenu()
         {
-            Console.WriteLine("***   Vend-O-Matic   ***");
-            Console.WriteLine("***                  ***");
-            Console.WriteLine("Welcome To The Main Menu");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Please choose from the following options:");
-            Console.WriteLine("-----------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Enter 1 to display available snacks");
-            Console.WriteLine("Enter 2 to make a purchase");
-            Console.WriteLine("Enter 3 to exit Vend-O-Matic");
+            DisplayMainMenu();
+            
+            
+            
+
+
             choiceFromMainMenu = (Console.ReadLine());
             if (choiceFromMainMenu == "1")
             {
                 DisplayList();
-                PurchaseMenu();
             }
             if (choiceFromMainMenu == "2")
             {
@@ -65,24 +67,43 @@ namespace Capstone.Models
                 Exit();//call exit method
             }
             
-            //1 dispaly items
-            //2 make purchase
-            //3 exit
+           
+        }
+
+        private void DisplayMainMenu()
+        {
+            Console.WriteLine("***   Vend-O-Matic   ***");
+            Console.WriteLine("***                  ***");
+            Console.WriteLine("Welcome To The Main Menu");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Please choose from the following options:");
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("(1) Display Vending Machine Items");
+            Console.WriteLine("(2) Purchase");
+            Console.WriteLine("(3) Exit");
         }
 
         private void DisplayList()
         {
 
-            Console.WriteLine("Location      Item         Price   Amount   Type");
+            Console.Clear();
+            // Value = amount of characters space takes up (+ = start from right, - = start from left)
+            Console.WriteLine($"{"Location", -10}{"Item", -20}{"Price", -8}{"Amount", -8}{"Type", -8}");
             
             foreach (var item in CurrentInventory.InventoryItems)
             {
                 string SoldOut = (item.Value.Count == 0) ? "SoldOut" : "";
-                Console.WriteLine($"{item.Key, 3} {item.Value.Name, 20}   {item.Value.Price, 5}   {item.Value.Count, 1}   {SoldOut}  {item.Value.ItemType, 7}");
+                Console.WriteLine($"{item.Key, -10}{item.Value.Name, -20}{item.Value.Price, -8:C}{item.Value.Count, -8}{item.Value.ItemType, -8}{SoldOut, -8}");
             }
 
-            Console.WriteLine("Select item location:");
+            Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
             string userInput = Console.ReadLine();
+            if (userInput == "00")
+            {
+                MainMenu();
+            }
 
 
 
@@ -90,9 +111,36 @@ namespace Capstone.Models
 
         public void PurchaseMenu()
         {
+            Console.Clear();
+            Console.WriteLine("Welcome to the Purchase Menu");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Please choose from the following options:");
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine($"Current Money Provided: {CurrentPayment.AmountPaid:C}");
+            Console.WriteLine();
+            Console.WriteLine("(1) Feed Money");
+            Console.WriteLine("(2) Select Product");
+            Console.WriteLine("(3) Finish Transaction");
+            Console.WriteLine("(00) Return to Main Menu");
 
+            string userInput = Console.ReadLine();
+            switch (userInput)
+            {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "00":
+                    MainMenu();
+                    break;
+                default:
+                    throw new ArgumentException();
+                    break;
+            }
 
-            
         }
         //public void 
        // public void UpdateDisplay()
