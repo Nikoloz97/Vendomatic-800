@@ -31,7 +31,7 @@ namespace Capstone.Models
                     item.Price = decimal.Parse(itemArray[2]);
                     item.ItemType = itemArray[3];
                     InventoryItems.Add(itemArray[0], item);
-                    item.Count = 5;
+                    item.Count = 2;
                 }
 
                 

@@ -10,13 +10,6 @@ namespace Capstone.Models
 {
     public class Display
     {
-        //create a "main menu" method
-        //create a "purchase menu" method
-        //create text scripting for each choice
-        // Attribute 
-        //int choiceFromMainMenu = 0;
-        //   public string SelectedItem { get; private set; }
-
         public Inventory CurrentInventory = new Inventory();
 
         private Payment CurrentPayment = new Payment();
@@ -61,7 +54,7 @@ namespace Capstone.Models
             choiceFromMainMenu = (Console.ReadLine());
             if (choiceFromMainMenu == "1")
             {
-                DisplayList();
+                DisplayTempList();
             }
             if (choiceFromMainMenu == "2")
             {
@@ -73,6 +66,29 @@ namespace Capstone.Models
             }
             
            
+        }
+
+        private void DisplayTempList()
+        {
+            Console.Clear();
+            // Value = amount of characters space takes up (+ = start from right, - = start from left)
+            Console.WriteLine($"{"Location",-10}{"Item",-20}{"Price",-8}{"Amount",-8}{"Type",-8}");
+            foreach (var item in CurrentInventory.InventoryItems)
+            {
+                string SoldOut = (item.Value.Count == 0) ? "SoldOut" : "";
+                Console.WriteLine($"{item.Key,-10}{item.Value.Name,-20}{item.Value.Price,-8:C}{item.Value.Count,-8}{item.Value.ItemType,-8}{SoldOut,-8}");
+            }
+
+            Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
+            string userInout = Console.ReadLine();
+            switch (userInout)
+            {
+                case "00":
+                    MainMenu();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void DisplayMainMenu()
@@ -92,19 +108,17 @@ namespace Capstone.Models
 
         private void DisplayList()
         {
-
             Console.Clear();
             // Value = amount of characters space takes up (+ = start from right, - = start from left)
-            Console.WriteLine($"{"Location", -10}{"Item", -20}{"Price", -8}{"Amount", -8}{"Type", -8}");
-            
+            Console.WriteLine($"{"Location",-10}{"Item",-20}{"Price",-8}{"Amount",-8}{"Type",-8}");
             foreach (var item in CurrentInventory.InventoryItems)
             {
                 string SoldOut = (item.Value.Count == 0) ? "SoldOut" : "";
-                Console.WriteLine($"{item.Key, -10}{item.Value.Name, -20}{item.Value.Price, -8:C}{item.Value.Count, -8}{item.Value.ItemType, -8}{SoldOut, -8}");
+                Console.WriteLine($"{item.Key,-10}{item.Value.Name,-20}{item.Value.Price,-8:C}{item.Value.Count,-8}{item.Value.ItemType,-8}{SoldOut,-8}");
             }
 
             Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
-            
+             
 
 
 
@@ -125,6 +139,7 @@ namespace Capstone.Models
             {
                 DisplayMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
             }
+            Console.WriteLine();
 
             Console.WriteLine("(1) Feed Money");
             Console.WriteLine("(2) Select Product");
@@ -137,26 +152,40 @@ namespace Capstone.Models
 
 
 
-
+            userInput = userInput.ToUpper();
 
             switch (userInput)
             {
                 case "1":
-                    CurrentPayment.IncreaseFeedMoney();PurchaseMenu();
+                    {
+                        CurrentPayment.IncreaseFeedMoney();
+                        Log.WriteToLog($"{DateTime.Now } FEED MONEY {CurrentPayment.AmountPaid - 1,-6:C} {CurrentPayment.AmountPaid,-6:C} ");
+                        PurchaseMenu();
+                    }
                     break;
                 case "2":
                     DisplayList();
                     upperUserInput = Console.ReadLine();
                     //verify choice is valid
-                    Verify(upperUserInput.ToUpper());
-                    CurrentInventory.Dispense(upperUserInput.ToUpper());
+                   if (Verify(upperUserInput.ToUpper())) 
+                    {
                     
+                    CurrentInventory.Dispense(upperUserInput.ToUpper());
                     DisplayMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
-                    PurchaseMenu();
-
-                   
-
-
+                        Log.WriteToLog($"{DateTime.Now }" +
+                            $" {CurrentInventory.InventoryItems[upperUserInput.ToUpper()].Name}" +
+                            $"{upperUserInput.ToUpper()} " +
+                              $" {CurrentInventory.InventoryItems[upperUserInput.ToUpper()].Price,-6:C}" +
+                            $" {CurrentPayment.AmountPaid,-6:C} ");
+                        PurchaseMenu();
+                    
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\n oops,{CurrentInventory.InventoryItems[upperUserInput.ToUpper()].Name}  is sold out. Please select another item.");
+                        Thread.Sleep(3000);
+                        PurchaseMenu();
+                    }
                     break;
                 case "3":
                     break;
@@ -164,27 +193,30 @@ namespace Capstone.Models
                     MainMenu();
                     break;
                 default:
-                    throw new ArgumentException();
+               //     throw new ArgumentException();
                     break;
             }
-            
-            
-            
-
         }
 
-        private void Verify(string userInput)
+        private bool Verify(string userInput)
         {
             if(CurrentInventory.InventoryItems.ContainsKey(userInput))
             {
                 if (CurrentInventory.InventoryItems[userInput].Count > 0)
                 {
                     UpdatingRemainingMoney(userInput);
+                    return true;
                 }
                 else
                 {
-                    Console.WriteLine("Item is sold out. Select new item.");
+               
+                    return false;
+
                 }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -219,11 +251,6 @@ namespace Capstone.Models
             
 
         }
-
-        
-
-        
-
 
     }
 }
