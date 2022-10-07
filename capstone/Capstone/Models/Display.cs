@@ -17,6 +17,7 @@ namespace Capstone.Models
         string choiceFromMainMenu = "";
 
         string upperUserInput = null;
+        private bool _displayMsg = false;
 
 
 
@@ -24,10 +25,6 @@ namespace Capstone.Models
         {
             CurrentInventory.LoadInventory();
             MainMenu();
-
-
-
-
         }
 
 
@@ -135,10 +132,15 @@ namespace Capstone.Models
             Console.WriteLine($"Current Money Provided: {CurrentPayment.AmountPaid:C}");
             Console.WriteLine();
 
-            if (upperUserInput != null)
+            if (_displayMsg   )
             {
                 DisplayMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
             }
+            //else
+            //{
+            //   // Console.WriteLine("Insufficient balance");
+
+            //}
             Console.WriteLine();
 
             Console.WriteLine("(1) Feed Money");
@@ -167,7 +169,7 @@ namespace Capstone.Models
                     DisplayList();
                     upperUserInput = Console.ReadLine();
                     //verify choice is valid
-                   if (Verify(upperUserInput.ToUpper())) 
+                   if (Verify(upperUserInput.ToUpper()) && _displayMsg) 
                     {
                     
                     CurrentInventory.Dispense(upperUserInput.ToUpper());
@@ -182,7 +184,7 @@ namespace Capstone.Models
                     }
                     else
                     {
-                        Console.WriteLine($"\n oops,{CurrentInventory.InventoryItems[upperUserInput.ToUpper()].Name}  is sold out. Please select another item.");
+                        Console.WriteLine($"\n oops, You can't purchase {CurrentInventory.InventoryItems[upperUserInput.ToUpper()].Name} Please select another item.");
                         Thread.Sleep(3000);
                         PurchaseMenu();
                     }
@@ -190,6 +192,8 @@ namespace Capstone.Models
                 case "3":
                     Console.WriteLine("Dispensing Change");
                     Console.WriteLine(CurrentPayment.SmallestChange((int)((CurrentPayment.AmountPaid * 100))));
+                    Thread.Sleep(3000);
+                    Exit();
                     
                     break;
                 case "00":
@@ -207,18 +211,20 @@ namespace Capstone.Models
             {
                 if (CurrentInventory.InventoryItems[userInput].Count > 0)
                 {
+                    _displayMsg = true;
                     UpdatingRemainingMoney(userInput);
+
                     return true;
                 }
                 else
                 {
-               
+                    _displayMsg = false;
                     return false;
-
                 }
             }
             else
             {
+                _displayMsg = false;
                 return false;
             }
         }
@@ -227,8 +233,13 @@ namespace Capstone.Models
         {
             if (CurrentPayment.ValidTransaction(CurrentPayment.AmountPaid, CurrentInventory.InventoryItems[userInput].Price))
             {
+                _displayMsg = true;
                 CurrentPayment.DecreaseMoney(CurrentInventory.InventoryItems[userInput].Price);
             }
+            else
+            {
+                _displayMsg = false; 
+                            }
         }
 
         public void DisplayMessage(Item _item)
