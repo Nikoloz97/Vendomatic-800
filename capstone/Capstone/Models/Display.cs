@@ -68,6 +68,12 @@ namespace Capstone.Models
         private void DisplayTempList()
         {
             Console.Clear();
+            Console.WriteLine("╔═══════════════════════════════════════════════╗");
+            Console.WriteLine("║        ►   Items in Vend-O-Matic   ◄          ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════╝");
+
+
+
             // Value = amount of characters space takes up (+ = start from right, - = start from left)
             Console.WriteLine($"{"Location",-10}{"Item",-20}{"Price",-8}{"Amount",-8}{"Type",-8}");
             foreach (var item in CurrentInventory.InventoryItems)
@@ -76,22 +82,31 @@ namespace Capstone.Models
                 Console.WriteLine($"{item.Key,-10}{item.Value.Name,-20}{item.Value.Price,-8:C}{item.Value.Count,-8}{item.Value.ItemType,-8}{SoldOut,-8}");
             }
 
-            Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
-            string userInout = Console.ReadLine();
-            switch (userInout)
+            Console.WriteLine("\n \n press ESC key for main menu");
+            ConsoleKeyInfo userInout = Console.ReadKey();
+            Console.WriteLine(userInout);
+            switch (userInout.KeyChar)
             {
-                case "00":
+                case (char)27:
+                    Console.Clear();
                     MainMenu();
                     break;
                 default:
+                    DisplayTempList();
                     break;
             }
         }
 
         private void DisplayMainMenu()
         {
-            Console.WriteLine("***   Vend-O-Matic   ***");
-            Console.WriteLine("***                  ***");
+            Console.WriteLine("╔═══════════════════════════════════════════════╗");
+            Console.WriteLine("║    ░▒▓    ►      Vend-O-Matic     ◄  ▓▒░      ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════╝");
+
+
+
+            //Console.WriteLine("***   Vend-O-Matic   ***");
+            //Console.WriteLine("***                  ***");
             Console.WriteLine("Welcome To The Main Menu");
             Console.WriteLine();
             Console.WriteLine();
@@ -106,6 +121,9 @@ namespace Capstone.Models
         private void DisplayList()
         {
             Console.Clear();
+            Console.WriteLine("╔═══════════════════════════════════════════════╗");
+            Console.WriteLine("║        ►   Items in Vend-O-Matic   ◄          ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════╝\n \n");
             // Value = amount of characters space takes up (+ = start from right, - = start from left)
             Console.WriteLine($"{"Location",-10}{"Item",-20}{"Price",-8}{"Amount",-8}{"Type",-8}");
             foreach (var item in CurrentInventory.InventoryItems)
@@ -114,7 +132,7 @@ namespace Capstone.Models
                 Console.WriteLine($"{item.Key,-10}{item.Value.Name,-20}{item.Value.Price,-8:C}{item.Value.Count,-8}{item.Value.ItemType,-8}{SoldOut,-8}");
             }
 
-            Console.WriteLine("\n \n Select item location (or 00 to go to the Main Menu:)");
+            Console.WriteLine("\n \n Select  item location (or 00 to go to the Main Menu:)");
              
 
 
@@ -124,7 +142,12 @@ namespace Capstone.Models
         public void PurchaseMenu()
         {
             Console.Clear();
-            Console.WriteLine("Welcome to the Purchase Menu");
+            Console.WriteLine("╔═══════════════════════════════════════════════╗");
+            Console.WriteLine("║        ►       Purchase Menu       ◄          ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════╝");
+
+
+           // Console.WriteLine("Welcome to the Purchase Menu");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("Please choose from the following options:");
@@ -192,6 +215,7 @@ namespace Capstone.Models
                 case "3":
                     Console.WriteLine("Dispensing Change");
                     Console.WriteLine(CurrentPayment.SmallestChange((int)((CurrentPayment.AmountPaid * 100))));
+                   
                     Thread.Sleep(3000);
                     Exit();
                     
