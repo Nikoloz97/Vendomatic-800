@@ -4,17 +4,15 @@ using System.Text;
 using System.IO;
 
 namespace Capstone.Models
-{
-   public static  class Log
+{/// <summary>
+/// A static class to Write Logs of application 
+/// </summary>
+   public static class Logger
     {
-        
-
         public static void WriteToLog(string msg)
         {
             string directory = Environment.CurrentDirectory;
             string fileName = "Log.txt";
-
-
             try
             {
                 using (StreamWriter sw = new StreamWriter(Path.Combine(directory, fileName), true))
@@ -24,10 +22,8 @@ namespace Capstone.Models
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("Oops, Something Wrong happened, Logging failed");
             }
         }
-
     }
 }

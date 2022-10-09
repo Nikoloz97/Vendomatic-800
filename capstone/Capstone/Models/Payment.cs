@@ -26,9 +26,6 @@ namespace Capstone.Models
         public bool ValidTransaction(decimal amountPaid, decimal balanceDue)
         {
             return amountPaid >= balanceDue;
-
-
-
         }
 
         public string DisplayMessage()

@@ -11,6 +11,5 @@ namespace Capstone.Models
         public string ItemType { get; set; }
         public int Count { get; set; }
 
-
     }
 }
