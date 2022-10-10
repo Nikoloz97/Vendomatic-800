@@ -45,7 +45,18 @@ namespace Capstone.Models
             {
                 case "1": DisplayTempList(); break;
                 case "2": PurchaseMenu(); break;
-                case "3": WriteSalesReport();Exit();    break;
+                case "3": WriteSalesReport();
+
+                    Console.WriteLine("Dispensing Change"); // Kim note 
+                    Console.WriteLine(CurrentPayment.SmallestChange((int)((CurrentPayment.AmountPaid * 100))));
+                    SalesReport.WriteItemsToSalesReport();
+                    Thread.Sleep(3000);
+
+
+
+
+
+                    Exit();    break;
                 default:
                     Console.Clear();
                     goto startOver;
@@ -156,7 +167,11 @@ namespace Capstone.Models
 
             if (_displayMsg)
             {
+                if (upperUserInput != "00")
+                {
                 DisplayYumMessage(CurrentInventory.InventoryItems[upperUserInput.ToUpper()]);
+
+                }
             }
            
             Console.WriteLine();
@@ -182,7 +197,11 @@ namespace Capstone.Models
                 case "2":
                     DisplayList();
                     upperUserInput =  Console.ReadLine();
-                     
+
+                    if (upperUserInput == "00")  //kim note
+                    {
+                        PurchaseMenu();
+                    }
                     if(string.IsNullOrEmpty(upperUserInput))
                     {
                         goto case "2";
