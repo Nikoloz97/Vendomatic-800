@@ -47,6 +47,7 @@ namespace ConsoleAppUI
         public static void PrintColoredList(string _string, ConsoleColor _color, int _index)
         {
             ConsoleColor CurrentColor = Console.ForegroundColor;
+
             for (int i = 0; i < _string.Length; i++)
             {
                 if (i == _index)

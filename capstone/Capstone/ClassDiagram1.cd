@@ -3,12 +3,12 @@
   <Class Name="Capstone.Models.Display">
     <Position X="0.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAKIAAQAAACAApAAQgAAAAAQgIAAAACAAAAA=</HashCode>
+      <HashCode>IAAAAAIAAKIAAQAAACAApAAQgAAAAAQgIAAAACAAAAA=</HashCode>
       <FileName>Models\Display.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Capstone.Models.Item">
-    <Position X="0.75" Y="4.5" Width="1.5" />
+    <Position X="7.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Models\Item.cs</FileName>
@@ -17,7 +17,7 @@
   <Class Name="Capstone.Models.Inventory">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAgAAAAAAAAAAAIAAAAABAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAQAAAAAAAAAAABAAAAAAABAAAAAAABAA=</HashCode>
       <FileName>Models\Inventory.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -35,7 +35,7 @@
       <FileName>Models\VendOMatic800.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Capstone.Models.Loger">
+  <Class Name="Capstone.Models.Logger">
     <Position X="7.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
@@ -47,6 +47,13 @@
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAEAAAAAAAAAACAACAAAAAAAAAAAEAAA=</HashCode>
       <FileName>UIModels\Colored_Console.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Capstone.Models.SalesReport">
+    <Position X="3.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAQAAAAAEAAAAAAAMAAAQBAgAA=</HashCode>
+      <FileName>Models\SalesReport.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Arial" Size="9.75" />

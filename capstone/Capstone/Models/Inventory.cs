@@ -11,7 +11,6 @@ namespace Capstone.Models
     {
         public SalesReport Report = new SalesReport();//
         public Dictionary<string, Item> InventoryItems = new Dictionary<string, Item>();
-
         public void LoadInventory()
         {
 Report.CreatSalesReport();
@@ -32,7 +31,7 @@ Report.CreatSalesReport();
                         item.Price = decimal.Parse(itemArray[2]);
                         item.ItemType = itemArray[3];
                         InventoryItems.Add(itemArray[0], item);
-                        item.Count = 2;
+                        item.Count = 5;
                         Report.LoadItemsName(item.Name);
                     }
                 }

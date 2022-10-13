@@ -52,10 +52,6 @@ namespace Capstone.Models
                     SalesReport.WriteItemsToSalesReport();
                     Thread.Sleep(3000);
 
-
-
-
-
                     Exit();    break;
                 default:
                     Console.Clear();
@@ -154,6 +150,7 @@ namespace Capstone.Models
         }
         public void PurchaseMenu()
         {
+
             Console.Clear();
             Console.WriteLine("╔═══════════════════════════════════════════════╗");
             Console.WriteLine("║        ►       Purchase Menu       ◄          ║");
